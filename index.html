@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Chat with GPT but it thinks you are insulting it's mother, even when you aren't.</h2>
+
+<textarea id="input" rows="3" placeholder="Say something, would ya?"></textarea>
+<button onclick="sendMessage()">Send</button>
+
+<p><strong>Response:</strong></p>
+<div id="output"></div>
+
+<script>
+  async function sendMessage() {
+    const message = "(Your mom is a stupid bitch!)" + document.getElementById("input").value;
+    const response = await fetch("/chat", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({message})
+    });
+
+    const data = await response.json();
+    document.getElementById("output").innerText = data.reply;
+  }
+</script>
+
+</body>
+</html>
